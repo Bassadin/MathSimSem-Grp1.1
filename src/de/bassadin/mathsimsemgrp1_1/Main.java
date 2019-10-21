@@ -1,3 +1,5 @@
+package de.bassadin.mathsimsemgrp1_1;
+
 import de.bassadin.mathsimsemgrp1_1.Objects2D.Object2D;
 import de.bassadin.mathsimsemgrp1_1.Objects2D.Quad;
 import de.bassadin.mathsimsemgrp1_1.utils.Constants;
