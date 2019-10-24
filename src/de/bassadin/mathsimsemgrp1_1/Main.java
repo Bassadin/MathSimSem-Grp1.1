@@ -1,7 +1,6 @@
 package de.bassadin.mathsimsemgrp1_1;
 
 import de.bassadin.mathsimsemgrp1_1.Objects2D.Object2D;
-import de.bassadin.mathsimsemgrp1_1.Objects2D.Quad;
 import de.bassadin.mathsimsemgrp1_1.Objects2D.QuadBody;
 import de.bassadin.mathsimsemgrp1_1.utils.Constants;
 
@@ -13,8 +12,8 @@ import java.util.Iterator;
 public class Main extends JFrame {
     ArrayList<Object2D> sceneObjects = new ArrayList<Object2D>();
 
-    QuadBody quad1 = new QuadBody(100, 100, 150, 150);
-    QuadBody quad2 = new QuadBody(400, 100, 150, 150);
+    QuadBody quadBody1 = new QuadBody(50, 125, 150, 150, 1.5);
+    QuadBody quadBody2 = new QuadBody(450, 100, 200, 200, 2);
 
     public Main() {
         //Window Setup
@@ -23,11 +22,11 @@ public class Main extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         //Object Setup
-        sceneObjects.add(quad1);
-        quad2.setColor(Color.RED);
-        sceneObjects.add(quad2);
+        sceneObjects.add(quadBody1);
+        quadBody2.setColor(Color.RED);
+        sceneObjects.add(quadBody2);
 
-        quad1.setPosX(quad1.getPosX() + 120);
+        quadBody1.setPosX(quadBody1.getPosX() + 120);
     }
 
     public static void main(String[] args) {
@@ -48,9 +47,6 @@ public class Main extends JFrame {
 
     void draw(double deltaTime) {
         Graphics g = getGraphics();
-
-        quad1.setPosX((int)(Math.sin(deltaTime * 10) * 140) + 300);
-        quad1.setPosY((int)(Math.cos(deltaTime * 10) * 40) + 350);
 
         //Fill Scene Background
         g.setColor(Color.WHITE);
