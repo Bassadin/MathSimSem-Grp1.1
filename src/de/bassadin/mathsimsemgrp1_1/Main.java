@@ -43,9 +43,15 @@ public class Main extends JFrame {
 
     void draw(double deltaTime) {
         Graphics g = getGraphics();
+
+        //Fill Scene Background
         g.setColor(Color.WHITE);
         g.fillRect(0, 0, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
 
+        drawSceneObjects(g);
+    }
+
+    void drawSceneObjects(Graphics g) {
         Iterator<Object2D> iterator = sceneObjects.iterator();
         while (iterator.hasNext()) {
             Object2D object = iterator.next();
@@ -53,4 +59,5 @@ public class Main extends JFrame {
         }
     }
 }
+
 
