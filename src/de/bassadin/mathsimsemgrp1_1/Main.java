@@ -13,6 +13,9 @@ import java.util.Iterator;
 public class Main extends JFrame {
     ArrayList<Object2D> sceneObjects = new ArrayList<Object2D>();
 
+    QuadBody quad1 = new QuadBody(100, 100, 150, 150);
+    QuadBody quad2 = new QuadBody(400, 100, 150, 150);
+
     public Main() {
         //Window Setup
         setTitle("Harmonische Bewegung zweier gekoppelter Massen");
@@ -20,9 +23,7 @@ public class Main extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         //Object Setup
-        QuadBody quad1 = new QuadBody(100, 100, 150, 150);
         sceneObjects.add(quad1);
-        QuadBody quad2 = new QuadBody(400, 100, 150, 150);
         quad2.setColor(Color.RED);
         sceneObjects.add(quad2);
 
@@ -47,6 +48,9 @@ public class Main extends JFrame {
 
     void draw(double deltaTime) {
         Graphics g = getGraphics();
+
+        quad1.setPosX((int)(Math.sin(deltaTime * 10) * 140) + 300);
+        quad1.setPosY((int)(Math.cos(deltaTime * 10) * 40) + 350);
 
         //Fill Scene Background
         g.setColor(Color.WHITE);
