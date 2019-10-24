@@ -2,6 +2,7 @@ package de.bassadin.mathsimsemgrp1_1;
 
 import de.bassadin.mathsimsemgrp1_1.Objects2D.Object2D;
 import de.bassadin.mathsimsemgrp1_1.Objects2D.Quad;
+import de.bassadin.mathsimsemgrp1_1.Objects2D.QuadBody;
 import de.bassadin.mathsimsemgrp1_1.utils.Constants;
 
 import javax.swing.*;
@@ -19,10 +20,13 @@ public class Main extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         //Object Setup
-        sceneObjects.add(new Quad(100, 100, 150, 150));
-        Quad quad2 = new Quad(400, 100, 150, 150);
+        QuadBody quad1 = new QuadBody(100, 100, 150, 150);
+        sceneObjects.add(quad1);
+        QuadBody quad2 = new QuadBody(400, 100, 150, 150);
         quad2.setColor(Color.RED);
         sceneObjects.add(quad2);
+
+        quad1.setPosX(quad1.getPosX() + 120);
     }
 
     public static void main(String[] args) {
