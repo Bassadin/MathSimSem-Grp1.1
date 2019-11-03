@@ -3,11 +3,11 @@ package de.bassadin.mathsimsemgrp1_1.Objects2D;
 import java.awt.*;
 
 public abstract class Object2D {
-    protected int posX;
-    protected int posY;
+    protected double posX;
+    protected double posY;
     protected Color color = Color.BLACK; //Standard color
 
-    public Object2D(int posX, int posY) {
+    public Object2D(double posX, double posY) {
         this.posX = posX;
         this.posY = posY;
     }
@@ -25,19 +25,19 @@ public abstract class Object2D {
         System.out.println("Position: X=" + this.getPosX() + ", Y=" + this.getPosY());
     }
 
-    public int getPosX() {
+    public double getPosX() {
         return posX;
     }
 
-    public void setPosX(int posX) {
+    public void setPosX(double posX) {
         this.posX = posX;
     }
 
-    public int getPosY() {
+    public double getPosY() {
         return posY;
     }
 
-    public void setPosY(int posY) {
+    public void setPosY(double posY) {
         this.posY = posY;
     }
 

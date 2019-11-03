@@ -8,14 +8,23 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class Main extends JFrame {
+public class SpringSimulation extends JFrame {
     ArrayList<Object2D> sceneObjects = new ArrayList<Object2D>();
 
-    QuadBody quadBody1 = new QuadBody(50, 125, 150, 150, 1.5);
-    QuadBody quadBody2 = new QuadBody(450, 100, 200, 200, 2);
+    float mass1 = 1.5f;
+    float mass2 = 2;
+    float SpringConstant = 1;
+    float equilibirumDistance = 5;
+    double startPosition1 = 50;
+    double startPosition2 = 450;
+    float startSpeed1 = 1;
+    float startSpeed2 = 3;
+
+    QuadBody quadBody1 = new QuadBody(startPosition1, 125, 150, 150, mass1);
+    QuadBody quadBody2 = new QuadBody(startPosition2, 100, 200, 200, mass2);
     Quad spring = new Quad(200, 190, 250, 20);
 
-    public Main() {
+    public SpringSimulation() {
         //Window Setup
         setTitle("Harmonische Bewegung zweier gekoppelter Massen");
         setSize(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
@@ -31,7 +40,7 @@ public class Main extends JFrame {
     }
 
     public static void main(String[] args) {
-        Main testObjekt = new Main();
+        SpringSimulation testObjekt = new SpringSimulation();
 
         testObjekt.setVisible(true);
         double deltaTime = 0;
