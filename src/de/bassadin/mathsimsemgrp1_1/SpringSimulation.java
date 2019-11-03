@@ -15,8 +15,8 @@ public class SpringSimulation extends JFrame {
     float mass2 = 2;
     float SpringConstant = 1;
     float equilibirumDistance = 5;
-    double startPosition1 = 50;
-    double startPosition2 = 450;
+    float startPosition1 = 50;
+    float startPosition2 = 450;
     float startSpeed1 = 1;
     float startSpeed2 = 3;
 
