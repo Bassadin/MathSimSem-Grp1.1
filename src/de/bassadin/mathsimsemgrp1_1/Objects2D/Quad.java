@@ -6,7 +6,7 @@ public class Quad extends Object2D {
     protected int width;
     protected int height;
 
-    public Quad(float posX, float posY, int width, int height) {
+    public Quad(double posX, double posY, int width, int height) {
         super(posX, posY);
         this.width = width;
         this.height = height;
