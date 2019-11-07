@@ -2,6 +2,7 @@ package de.bassadin.mathsimsemgrp1_1;
 
 import de.bassadin.mathsimsemgrp1_1.Objects2D.*;
 import de.bassadin.mathsimsemgrp1_1.utils.Constants;
+import de.bassadin.mathsimsemgrp1_1.utils.Utils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,14 +12,20 @@ import java.util.Iterator;
 public class SpringSimulation extends JFrame {
     ArrayList<Object2D> sceneObjects = new ArrayList<Object2D>();
 
-    float mass1 = 1.5f;
-    float mass2 = 2;
-    float SpringConstant = 1;
-    float equilibirumDistance = 5;
+    float mass1 = 3f;
+    float mass2 = 4f;
+    float springConstant = 1;
+    float equilibirumDistance = 2;
     float startPosition1 = 50;
     float startPosition2 = 450;
     float startSpeed1 = 1;
     float startSpeed2 = 3;
+
+    float reducedMass = Utils.reducedMass(mass1, mass2);
+    double sqrtDDividedByMu = Math.sqrt(springConstant / reducedMass);
+
+    float A = startPosition2 - startPosition1 - springConstant;
+    double B = (1 / sqrtDDividedByMu) * (startSpeed2 - startSpeed1);
 
     QuadBody quadBody1 = new QuadBody(startPosition1, 125, 150, 150, mass1);
     QuadBody quadBody2 = new QuadBody(startPosition2, 100, 200, 200, mass2);
@@ -61,6 +68,9 @@ public class SpringSimulation extends JFrame {
         //Fill Scene Background
         g.setColor(Color.WHITE);
         g.fillRect(0, 0, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
+
+        quadBody1.setPosX(A * Math.cos(sqrtDDividedByMu * deltaTime) + B * Math.sin(sqrtDDividedByMu * deltaTime));
+        quadBody2.setPosX(A * Math.cos(sqrtDDividedByMu * deltaTime) + B * Math.sin(sqrtDDividedByMu * deltaTime));
 
         drawSceneObjects(g);
     }
