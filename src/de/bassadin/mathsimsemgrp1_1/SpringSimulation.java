@@ -5,30 +5,40 @@ import de.bassadin.mathsimsemgrp1_1.utils.Constants;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Iterator;
 
 public class SpringSimulation extends JFrame {
     ArrayList<Object2D> sceneObjects = new ArrayList<Object2D>();
 
-    float mass1 = 1.5f;
-    float mass2 = 2;
+    private BufferedImage backBuffer;
+
+    float mass1 = 2f;
+    float mass2 = 2f;
     float SpringConstant = 1;
     float equilibirumDistance = 5;
-    float startPosition1 = 50;
-    float startPosition2 = 450;
+    float startPosition1 = 600;
+    float startPosition2 = 800;
     float startSpeed1 = 1;
     float startSpeed2 = 3;
 
-    QuadBody quadBody1 = new QuadBody(startPosition1, 125, 150, 150, mass1);
-    QuadBody quadBody2 = new QuadBody(startPosition2, 100, 200, 200, mass2);
-    Quad spring = new Quad(200, 190, 250, 20);
+    double rootSpringPerMass = Math.sqrt(SpringConstant/mass1);
+
+    float A = startPosition1 / 2;
+    float B = startPosition2 / 2;
+
+    QuadBody quadBody1 = new QuadBody(startPosition1, 150, 50, 50, mass1);
+    QuadBody quadBody2 = new QuadBody(startPosition2, 150, 50, 50, mass2);
+    Quad spring = new Quad(Constants.WINDOW_WIDTH/2, Constants.WINDOW_HEIGHT/2, 1200, 20);
 
     public SpringSimulation() {
         //Window Setup
         setTitle("Harmonische Bewegung zweier gekoppelter Massen");
         setSize(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+        backBuffer = new BufferedImage(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT, BufferedImage.TYPE_INT_RGB);
 
         //Object Setup
         sceneObjects.add(quadBody1);
@@ -57,12 +67,18 @@ public class SpringSimulation extends JFrame {
 
     void draw(double deltaTime) {
         Graphics g = getGraphics();
-
+        Graphics bbg = backBuffer.getGraphics();
         //Fill Scene Background
-        g.setColor(Color.WHITE);
-        g.fillRect(0, 0, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
+        bbg.setColor(Color.WHITE);
+        bbg.fillRect(0, 0, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
 
+        quadBody1.setPosX((A * Math.cos(rootSpringPerMass * deltaTime) + startPosition1) / 2);
+        //quadBody2.setPosY((-B * Math.sin(rootSpringPerMass * deltaTime) + startPosition2) / 2);
+        quadBody2.setPosX((-B * Math.cos(rootSpringPerMass * deltaTime) + startPosition2) / 2);
+
+        g.drawImage(backBuffer,0,0,null);
         drawSceneObjects(g);
+
     }
 
     void drawSceneObjects(Graphics g) {

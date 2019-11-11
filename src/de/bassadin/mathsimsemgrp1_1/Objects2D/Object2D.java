@@ -1,5 +1,7 @@
 package de.bassadin.mathsimsemgrp1_1.Objects2D;
 
+import de.bassadin.mathsimsemgrp1_1.SpringSimulation;
+
 import java.awt.*;
 
 public abstract class Object2D {
