@@ -12,13 +12,13 @@ import java.util.Iterator;
 public class SpringSimulation extends JFrame {
     ArrayList<Object2D> sceneObjects = new ArrayList<Object2D>();
 
-    float mass1 = 3.5f;
+    float mass1 = 9.5f;
     float mass2 = 6f;
 
     float springConstant = 3;
     float equilibriumDistance = 2;
-    float startPosition1 = 650;
-    float startPosition2 = 750;
+    float startPosition1 = 400;
+    float startPosition2 = 600;
     float startSpeed1 = 1;
     float startSpeed2 = 3;
 
@@ -73,11 +73,16 @@ public class SpringSimulation extends JFrame {
         g.setColor(Color.WHITE);
         g.fillRect(0, 0, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
 
-        quadBody1.setPosX(A * Math.cos(sqrtDDividedByMu * deltaTime) + B * Math.sin(sqrtDDividedByMu * deltaTime));
-        //quadBody2.setPosX(A * Math.cos(sqrtDDividedByMu * deltaTime) + B * Math.sin(sqrtDDividedByMu * deltaTime));
+        quadBody1.setPosX(A * Math.cos(sqrtDDividedByMu * deltaTime) + B * Math.sin(sqrtDDividedByMu * deltaTime) + startPosition1);
+        quadBody2.setPosX(-A * Math.cos(sqrtDDividedByMu * deltaTime) + B * Math.sin(sqrtDDividedByMu * deltaTime) + startPosition2);
 
         spring.setPosX(quadBody1.getPosX() + quadBody1.getWidth());
         spring.setWidth((int)(quadBody2.getPosX() - quadBody1.getPosX() - quadBody1.getWidth() + 2));
+
+        if (spring.getWidth() < 0) {
+            spring.setPosX(spring.getPosX() + spring.getWidth() + quadBody2.getWidth());
+            spring.setWidth(spring.getWidth() * -1 - quadBody1.getWidth());
+        }
 
         drawSceneObjects(g);
     }
