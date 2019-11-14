@@ -12,21 +12,23 @@ import java.util.Iterator;
 public class SpringSimulation extends JFrame {
     ArrayList<Object2D> sceneObjects = new ArrayList<Object2D>();
 
-    float mass1 = 9.5f;
-    float mass2 = 6f;
+    float mass1 = 6f;
+    float mass2 = 3f;
 
-    float springConstant = 3;
-    float equilibriumDistance = 2;
-    float startPosition1 = 400;
+    float springConstant = 10;
+    float equilibriumDistance = 0.5f;
+    float startPosition1 = 500;
     float startPosition2 = 600;
-    float startSpeed1 = 1;
-    float startSpeed2 = 3;
+    float startSpeed1 = 30;
+    float startSpeed2 = 0;
 
     float reducedMass = Utils.reducedMass(mass1, mass2);
     double sqrtDDividedByMu = Math.sqrt(springConstant / reducedMass);
 
     float A = startPosition2 - startPosition1 - springConstant;
     double B = (1 / sqrtDDividedByMu) * (startSpeed2 - startSpeed1);
+
+    float equilibriumSpeedAtT0 = 1 / (mass1 + mass2) * (mass1 * startSpeed1 + mass2 * startSpeed2);
 
     int body1SideLength = Utils.widthAndHeightForMass(mass1);
     int body2SideLength = Utils.widthAndHeightForMass(mass2);
@@ -73,8 +75,12 @@ public class SpringSimulation extends JFrame {
         g.setColor(Color.WHITE);
         g.fillRect(0, 0, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
 
-        quadBody1.setPosX(A * Math.cos(sqrtDDividedByMu * deltaTime) + B * Math.sin(sqrtDDividedByMu * deltaTime) + startPosition1);
-        quadBody2.setPosX(-A * Math.cos(sqrtDDividedByMu * deltaTime) + B * Math.sin(sqrtDDividedByMu * deltaTime) + startPosition2);
+        float equilibriumPositionAtT = (startPosition1 + equilibriumDistance / 2) + (1 / (mass1 + mass2) * (mass1 * startSpeed1 + mass2 * startSpeed2)) * (float)deltaTime;
+
+        double sVonT = A * Math.cos(sqrtDDividedByMu * deltaTime) + B * Math.sin(sqrtDDividedByMu * deltaTime) + startPosition1;
+
+        quadBody1.setPosX(equilibriumPositionAtT - ((mass2 * (sVonT + equilibriumDistance)) / mass1 + mass2));
+        quadBody2.setPosX(equilibriumPositionAtT + (mass1 / (mass1 + mass2)) * (sVonT - equilibriumDistance));
 
         spring.setPosX(quadBody1.getPosX() + quadBody1.getWidth());
         spring.setWidth((int)(quadBody2.getPosX() - quadBody1.getPosX() - quadBody1.getWidth() + 2));
