@@ -12,14 +12,14 @@ import java.util.Iterator;
 public class SpringSimulation extends JFrame {
     ArrayList<Object2D> sceneObjects = new ArrayList<Object2D>();
 
-    float mass1 = 6f;
-    float mass2 = 6f;
+    float mass1 = 9f;
+    float mass2 = 5f;
 
-    float springConstant = 10;
-    float equilibriumDistance = 0.5f;
-    float startPosition1 = 500;
-    float startPosition2 = 600;
-    float startSpeed1 = 30;
+    float springConstant = 20;
+    float equilibriumDistance = 0;
+    float startPosition1 = Constants.WINDOW_WIDTH / 2 - 50;
+    float startPosition2 = Constants.WINDOW_WIDTH / 2 + 50;
+    float startSpeed1 = 0;
     float startSpeed2 = 0;
 
     float reducedMass = Utils.reducedMass(mass1, mass2);
@@ -35,8 +35,12 @@ public class SpringSimulation extends JFrame {
 
     QuadBody quadBody1 = new QuadBody(startPosition1, 300 - body1SideLength / 2, body1SideLength, body1SideLength, mass1);
     QuadBody quadBody2 = new QuadBody(startPosition2, 300 - body2SideLength / 2, body2SideLength, body2SideLength, mass2);
-    Quad spring = new Quad(0, 300 - (int)(quadBody1.getHeight() * 0.2) / 2, 0, (int)(quadBody1.getHeight() * 0.2)); //Position will be updated in draw
-    Circle centerOfMass = new Circle(0, 300 - (int)(quadBody1.getHeight() * 0.4) / 2, (int)(quadBody1.getHeight() * 0.4), (int)(quadBody1.getHeight() * 0.4));
+
+    int springWidth = (int)(quadBody1.getHeight() * 0.16);
+    Quad spring = new Quad(0, 300 - springWidth / 2, 0, springWidth); //Position will be updated in draw
+
+    int centerOfMassSideLength = (int)(quadBody1.getHeight() * 0.3);
+    Circle centerOfMass = new Circle(0, 300 - centerOfMassSideLength / 2, centerOfMassSideLength, centerOfMassSideLength);
 
     public SpringSimulation() {
         //Window Setup
@@ -80,7 +84,7 @@ public class SpringSimulation extends JFrame {
         g.fillRect(0, 0, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
 
         float equilibriumPositionAtT = (startPosition1 + equilibriumDistance / 2) + (1 / (mass1 + mass2) * (mass1 * startSpeed1 + mass2 * startSpeed2)) * (float)deltaTime;
-        centerOfMass.setPosX(equilibriumPositionAtT);
+        centerOfMass.setPosX(equilibriumPositionAtT - centerOfMassSideLength / 4);
 
         double sVonT = A * Math.cos(sqrtDDividedByMu * deltaTime) + B * Math.sin(sqrtDDividedByMu * deltaTime) + startPosition1;
 
