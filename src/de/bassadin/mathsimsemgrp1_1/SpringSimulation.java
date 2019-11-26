@@ -13,7 +13,7 @@ public class SpringSimulation extends JFrame {
     ArrayList<Object2D> sceneObjects = new ArrayList<Object2D>();
 
     float mass1 = 6f;
-    float mass2 = 3f;
+    float mass2 = 6f;
 
     float springConstant = 10;
     float equilibriumDistance = 0.5f;
@@ -36,6 +36,7 @@ public class SpringSimulation extends JFrame {
     QuadBody quadBody1 = new QuadBody(startPosition1, 300 - body1SideLength / 2, body1SideLength, body1SideLength, mass1);
     QuadBody quadBody2 = new QuadBody(startPosition2, 300 - body2SideLength / 2, body2SideLength, body2SideLength, mass2);
     Quad spring = new Quad(0, 300 - (int)(quadBody1.getHeight() * 0.2) / 2, 0, (int)(quadBody1.getHeight() * 0.2)); //Position will be updated in draw
+    Circle centerOfMass = new Circle(0, 300 - (int)(quadBody1.getHeight() * 0.4) / 2, (int)(quadBody1.getHeight() * 0.4), (int)(quadBody1.getHeight() * 0.4));
 
     public SpringSimulation() {
         //Window Setup
@@ -48,6 +49,9 @@ public class SpringSimulation extends JFrame {
         quadBody2.setColor(Color.RED);
         sceneObjects.add(quadBody2);
         sceneObjects.add(spring);
+
+        centerOfMass.setColor(Color.CYAN);
+        sceneObjects.add(centerOfMass);
 
         quadBody1.setPosX(quadBody1.getPosX() + 120);
     }
@@ -76,11 +80,13 @@ public class SpringSimulation extends JFrame {
         g.fillRect(0, 0, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
 
         float equilibriumPositionAtT = (startPosition1 + equilibriumDistance / 2) + (1 / (mass1 + mass2) * (mass1 * startSpeed1 + mass2 * startSpeed2)) * (float)deltaTime;
+        centerOfMass.setPosX(equilibriumPositionAtT);
 
         double sVonT = A * Math.cos(sqrtDDividedByMu * deltaTime) + B * Math.sin(sqrtDDividedByMu * deltaTime) + startPosition1;
 
-        quadBody1.setPosX(equilibriumPositionAtT - ((mass2 * (sVonT + equilibriumDistance)) / mass1 + mass2));
-        quadBody2.setPosX(equilibriumPositionAtT + (mass1 / (mass1 + mass2)) * (sVonT - equilibriumDistance));
+        quadBody1.setPosX(equilibriumPositionAtT - ((mass2 * (sVonT + equilibriumDistance)) / mass1 + mass2)); //Position
+        quadBody2.setPosX(equilibriumPositionAtT + (mass1 / (mass1 + mass2)) * (sVonT - equilibriumDistance)); //Position
+
 
         spring.setPosX(quadBody1.getPosX() + quadBody1.getWidth());
         spring.setWidth((int)(quadBody2.getPosX() - quadBody1.getPosX() - quadBody1.getWidth() + 2));
