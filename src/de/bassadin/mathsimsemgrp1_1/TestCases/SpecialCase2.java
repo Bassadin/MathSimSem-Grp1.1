@@ -2,18 +2,15 @@ package de.bassadin.mathsimsemgrp1_1.TestCases;
 
 import de.bassadin.mathsimsemgrp1_1.BaseSpringSimulation;
 
-public class SpecialCase1 {
+public class SpecialCase2 {
     public static void main(String[] args) {
-        //Same Weight
-        //No start speed
-        //Equilibrium distance is equal to masses distance -> no movement
         BaseSpringSimulation testObjekt = new BaseSpringSimulation(
                 9f,
-                9f,
-                12,
+                5f,
+                18,
+                100,
+                200,
                 500,
-                300,
-                800,
                 0,
                 0
         );
