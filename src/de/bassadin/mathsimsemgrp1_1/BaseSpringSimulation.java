@@ -6,6 +6,7 @@ import de.bassadin.mathsimsemgrp1_1.utils.Utils;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -39,6 +40,8 @@ public class BaseSpringSimulation extends JFrame {
 
     private int centerOfMassSideLength;
     private Circle centerOfMass;
+
+    private BufferedImage backBuffer;
 
     public BaseSpringSimulation(float mass1, float mass2, float springConstant, float equilibriumDistance, float startPosition1, float startPosition2, float startSpeed1, float startSpeed2) {
         //Set vars
@@ -91,6 +94,7 @@ public class BaseSpringSimulation extends JFrame {
         setTitle("Harmonische Bewegung zweier gekoppelter Massen");
         setSize(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        backBuffer = new BufferedImage(Constants.WINDOW_WIDTH,Constants.WINDOW_HEIGHT, BufferedImage.TYPE_INT_RGB);
 
         this.setVisible(true);
         double deltaTime = 0;
@@ -106,10 +110,11 @@ public class BaseSpringSimulation extends JFrame {
 
     void draw(double deltaTime) {
         Graphics g = getGraphics();
+        Graphics bbg = backBuffer.getGraphics();
 
         //Fill Scene Background
-        g.setColor(Color.WHITE);
-        g.fillRect(0, 0, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
+        bbg.setColor(Color.WHITE);
+        bbg.fillRect(0, 0, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
 
         //Draw Grid
         g.setColor(Color.LIGHT_GRAY);
@@ -140,7 +145,8 @@ public class BaseSpringSimulation extends JFrame {
             spring.setWidth(spring.getWidth() * -1 - quadBody1.getWidth());
         }
 
-        drawSceneObjects(g);
+        drawSceneObjects(bbg);
+        g.drawImage(backBuffer,0, 0, null);
     }
 
     void drawSceneObjects(Graphics g) {
