@@ -146,6 +146,11 @@ public class BaseSpringSimulation extends JFrame {
         }
 
         drawSceneObjects(bbg);
+
+        //Mass numbers
+        bbg.setColor(Color.white);
+        bbg.drawString("1", (int)(quadBody1.getPosX() + quadBody1.getWidth() / 2), (int)(quadBody1.getPosY() + quadBody1.getHeight() / 2));
+        bbg.drawString("2", (int)(quadBody2.getPosX() + quadBody2.getWidth() / 2), (int)(quadBody2.getPosY() + quadBody2.getHeight() / 2));
         g.drawImage(backBuffer,0, 0, null);
     }
 
