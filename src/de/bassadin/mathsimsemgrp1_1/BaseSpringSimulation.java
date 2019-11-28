@@ -117,14 +117,14 @@ public class BaseSpringSimulation extends JFrame {
         bbg.fillRect(0, 0, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
 
         //Draw Grid
-        g.setColor(Color.LIGHT_GRAY);
+        bbg.setColor(Color.LIGHT_GRAY);
         for(int x = 100; x <= Constants.WINDOW_WIDTH; x += 100) {
-            g.drawLine(x, 0, x, Constants.WINDOW_HEIGHT);
-            g.drawString(Integer.toString(x), x + 5, 50);
+            bbg.drawLine(x, 0, x, Constants.WINDOW_HEIGHT);
+            bbg.drawString(Integer.toString(x), x + 5, 50);
         }
         for(int y = 100; y <= Constants.WINDOW_WIDTH; y += 100) {
-            g.drawLine(0, y, Constants.WINDOW_WIDTH, y);
-            g.drawString(Integer.toString(y), 10, y + 13);
+            bbg.drawLine(0, y, Constants.WINDOW_WIDTH, y);
+            bbg.drawString(Integer.toString(y), 10, y + 13);
         }
 
         //Center of Mass Point
