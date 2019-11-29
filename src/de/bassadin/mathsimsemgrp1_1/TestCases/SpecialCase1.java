@@ -8,12 +8,12 @@ public class SpecialCase1 {
         //No start speed
         //Equilibrium distance is equal to masses distance -> no movement
         BaseSpringSimulation testObjekt = new BaseSpringSimulation(
-                9f,
-                9f,
+                12f,
+                12f,
                 12,
-                200,
-                200,
                 400,
+                300,
+                700,
                 0,
                 0
         );
