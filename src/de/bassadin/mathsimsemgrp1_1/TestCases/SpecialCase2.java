@@ -5,12 +5,12 @@ import de.bassadin.mathsimsemgrp1_1.BaseSpringSimulation;
 public class SpecialCase2 {
     public static void main(String[] args) {
         BaseSpringSimulation testObjekt = new BaseSpringSimulation(
-                9f,
-                5f,
+                10f,
+                10f,
                 18,
-                100,
+                300,
                 200,
-                500,
+                600,
                 0,
                 0
         );
