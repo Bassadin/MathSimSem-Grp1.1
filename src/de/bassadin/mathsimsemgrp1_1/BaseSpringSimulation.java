@@ -58,7 +58,8 @@ public class BaseSpringSimulation extends JFrame {
         body1SideLength = Utils.widthAndHeightForMass(mass1);
         body2SideLength = Utils.widthAndHeightForMass(mass2);
 
-        int objectHeight = 200;
+        //Where the objects are placed on the y axis
+        int objectHeight = 300;
 
         quadBody1 = new QuadBody(0, objectHeight - body1SideLength / 2, body1SideLength, body1SideLength, mass1);
         quadBody2 = new QuadBody(0, objectHeight - body2SideLength / 2, body2SideLength, body2SideLength, mass2);
