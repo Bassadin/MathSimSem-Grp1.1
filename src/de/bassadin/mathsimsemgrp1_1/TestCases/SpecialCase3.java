@@ -8,7 +8,7 @@ public class SpecialCase3 {
         //Same Weight
         //No start speed
         //Equilibrium distance is greater than masses distance
-        // -> Bodies move, but center of mass does not
+        // -> Bodies move outward, but center of mass does not move
         BaseSpringSimulation testObjekt = new BaseSpringSimulation(
                 Constants.testCaseDefaultMass,
                 Constants.testCaseDefaultMass,

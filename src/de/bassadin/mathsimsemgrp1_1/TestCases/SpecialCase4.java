@@ -16,7 +16,7 @@ public class SpecialCase4 {
                 300,
                 100,
                 400,
-                50,
+                80,
                 0
         );
     }
