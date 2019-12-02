@@ -29,7 +29,7 @@ public class BaseSpringSimulation extends JFrame {
     private float a; //Constant A for s(t)
     private double b; //Constant B for s(t)
 
-    private float centerOfMassSpeedAtT0, centerOfMassPositionAtT0; //Center of mass speed and position at t=0
+    private float centerOfMassSpeed, centerOfMassStartPosition; //Center of mass speed and position at t=0
 
     //Drawing stuff
     private ArrayList<Object2D> sceneObjects = new ArrayList<Object2D>(); //Scene Objects (bodies, spring, etc.)
@@ -39,6 +39,8 @@ public class BaseSpringSimulation extends JFrame {
     private int centerOfMassSideLength;
     private Circle centerOfMass;
     private BufferedImage backBuffer;
+    //Where the objects are placed on the y axis
+    private final int objectHeight = 300;
 
     //Constructor
     public BaseSpringSimulation(float mass1, float mass2, float springConstant, float equilibriumDistance, float startPosition1, float startPosition2, float startSpeed1, float startSpeed2) {
@@ -52,12 +54,20 @@ public class BaseSpringSimulation extends JFrame {
         this.startSpeed1 = startSpeed1;
         this.startSpeed2 = startSpeed2;
 
+        System.out.println("Start values:");
+        System.out.println("m1 = " + mass1);
+        System.out.println("m2 = " + mass2);
+        System.out.println("D = " + springConstant);
+        System.out.println("l0 = " + equilibriumDistance);
+        System.out.println("x1(0) = " + startPosition1);
+        System.out.println("x2(0) = " + startPosition2);
+        System.out.println("x'1(0) = " + startSpeed1);
+        System.out.println("x'2(0) = " + startSpeed2);
+
         //Drawing stuff
         var body1SideLength = Utils.widthAndHeightForMass(mass1);
         var body2SideLength = Utils.widthAndHeightForMass(mass2);
 
-        //Where the objects are placed on the y axis
-        int objectHeight = 300;
 
         quadBody1 = new QuadBody(0, objectHeight - body1SideLength / 2, body1SideLength, body1SideLength, mass1);
         quadBody2 = new QuadBody(0, objectHeight - body2SideLength / 2, body2SideLength, body2SideLength, mass2);
@@ -70,13 +80,18 @@ public class BaseSpringSimulation extends JFrame {
 
         //Formula stuff
         reducedMass = Utils.reducedMass(mass1, mass2); //Reduced Mass
+        System.out.println("µ = " + reducedMass);
         sqrtDDividedByMu = Math.sqrt(springConstant / reducedMass); //The square root of
 
         a = startPosition2 - startPosition1 - equilibriumDistance;
         b = (1 / sqrtDDividedByMu) * (startSpeed2 - startSpeed1);
 
-        centerOfMassSpeedAtT0 = 1 / (mass1 + mass2) * ((mass1 * startSpeed1) + (mass2 * startSpeed2));
-        centerOfMassPositionAtT0 = ((mass1 * startPosition1) + (mass2 * startPosition2)) / (mass1 + mass2);
+        System.out.println("A = " + a);
+        System.out.println("B = " + b);
+
+        centerOfMassSpeed = 1 / (mass1 + mass2) * ((mass1 * startSpeed1) + (mass2 * startSpeed2)); //V(0)
+        centerOfMassStartPosition = ((mass1 * startPosition1) + (mass2 * startPosition2)) / (mass1 + mass2); //X(0)
+        System.out.println("Center of mass speed - V(0) = " + centerOfMassSpeed);
 
         //Object Setup
         sceneObjects.add(quadBody1);
@@ -128,7 +143,7 @@ public class BaseSpringSimulation extends JFrame {
         }
 
         //Center of Mass Point
-        float centerOfMassPositionAtT = centerOfMassPositionAtT0 + (centerOfMassSpeedAtT0 * (float)deltaTime);
+        float centerOfMassPositionAtT = centerOfMassStartPosition + (centerOfMassSpeed * (float)deltaTime);
         centerOfMass.setPosX(centerOfMassPositionAtT - centerOfMass.getWidth() / 2); //The position of the center of mass dependent of t
 
         double sVonT = (a * Math.cos(sqrtDDividedByMu * deltaTime)) + (b * Math.sin(sqrtDDividedByMu * deltaTime)); //The s(t) formula
