@@ -33,17 +33,14 @@ public class BaseSpringSimulation extends JFrame {
 
     //Drawing stuff
     private ArrayList<Object2D> sceneObjects = new ArrayList<Object2D>(); //Scene Objects (bodies, spring, etc.)
-
     private QuadBody quadBody1, quadBody2;
-
     private int springWidth;
     private Quad spring;
-
     private int centerOfMassSideLength;
     private Circle centerOfMass;
-
     private BufferedImage backBuffer;
 
+    //Constructor
     public BaseSpringSimulation(float mass1, float mass2, float springConstant, float equilibriumDistance, float startPosition1, float startPosition2, float startSpeed1, float startSpeed2) {
         //Set vars
         this.mass1 = mass1;
@@ -110,6 +107,7 @@ public class BaseSpringSimulation extends JFrame {
         }
     }
 
+    //Draw a frame
     void draw(double deltaTime) {
         Graphics g = getGraphics();
         Graphics bbg = backBuffer.getGraphics();
@@ -151,6 +149,7 @@ public class BaseSpringSimulation extends JFrame {
             spring.setWidth(spring.getWidth() * -1 - quadBody1.getWidth());
         }
 
+        //Draw all scene objects
         drawSceneObjects(bbg);
 
         //Mass numbers
