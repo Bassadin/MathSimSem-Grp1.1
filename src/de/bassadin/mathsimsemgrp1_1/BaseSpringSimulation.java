@@ -89,7 +89,7 @@ public class BaseSpringSimulation extends JFrame {
         System.out.println("A = " + a);
         System.out.println("B = " + b);
 
-        centerOfMassSpeed = 1 / (mass1 + mass2) * ((mass1 * startSpeed1) + (mass2 * startSpeed2)); //V(0)
+        centerOfMassSpeed = ((mass1 * startSpeed1) + (mass2 * startSpeed2)) / (mass1 + mass2); //V(0)
         centerOfMassStartPosition = ((mass1 * startPosition1) + (mass2 * startPosition2)) / (mass1 + mass2); //X(0)
         System.out.println("Center of mass speed - V(0) = " + centerOfMassSpeed);
 
@@ -149,8 +149,8 @@ public class BaseSpringSimulation extends JFrame {
         double sVonT = (a * Math.cos(sqrtDDividedByMu * deltaTime)) + (b * Math.sin(sqrtDDividedByMu * deltaTime)); //The s(t) formula
 
         //Body positions
-        double body1Position = ((mass1 + mass2) * centerOfMassPositionAtT - mass2 * (sVonT + equilibriumDistance)) / (mass1 + mass2);
-        double body2Position = centerOfMassPositionAtT - ((mass1 * (-sVonT - equilibriumDistance)) / (mass1 + mass2));
+        double body1Position = centerOfMassPositionAtT - ((mass2 * (sVonT + equilibriumDistance)) / (mass1 + mass2));
+        double body2Position = centerOfMassPositionAtT + ((mass1  / (mass1 + mass2)) * (sVonT + equilibriumDistance));
 
         quadBody1.setPosX(body1Position - quadBody1.getWidth() / 2);
         quadBody2.setPosX(body2Position - quadBody2.getWidth() / 2);
