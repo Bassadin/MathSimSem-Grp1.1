@@ -123,7 +123,7 @@ public class BaseSpringSimulation extends JFrame {
     }
 
     //Draw a frame
-    void draw(double deltaTime) {
+    void draw(double timeSinceStart) {
         Graphics g = getGraphics();
         Graphics bbg = backBuffer.getGraphics();
 
@@ -143,14 +143,14 @@ public class BaseSpringSimulation extends JFrame {
         }
 
         //Center of Mass Point
-        float centerOfMassPositionAtT = centerOfMassStartPosition + (centerOfMassSpeed * (float)deltaTime);
+        float centerOfMassPositionAtT = centerOfMassStartPosition + (centerOfMassSpeed * (float)timeSinceStart);
         centerOfMass.setPosX(centerOfMassPositionAtT - centerOfMass.getWidth() / 2); //The position of the center of mass dependent of t
 
-        double sVonT = (a * Math.cos(omega * deltaTime)) + (b * Math.sin(omega * deltaTime)); //The s(t) formula
+        double overshootByTime = (a * Math.cos(omega * timeSinceStart)) + (b * Math.sin(omega * timeSinceStart)); //The s(t) formula
 
         //Body positions
-        double body1Position = centerOfMassPositionAtT - ((mass2 * (sVonT + equilibriumDistance)) / (mass1 + mass2));
-        double body2Position = centerOfMassPositionAtT + ((mass1  / (mass1 + mass2)) * (sVonT + equilibriumDistance));
+        double body1Position = centerOfMassPositionAtT - ((mass2 * (overshootByTime + equilibriumDistance)) / (mass1 + mass2));
+        double body2Position = centerOfMassPositionAtT + ((mass1  / (mass1 + mass2)) * (overshootByTime + equilibriumDistance));
 
         quadBody1.setPosX(body1Position - quadBody1.getWidth() / 2);
         quadBody2.setPosX(body2Position - quadBody2.getWidth() / 2);
