@@ -24,7 +24,7 @@ public class BaseSpringSimulation extends JFrame {
 
 
     private float reducedMass; //reduced mass of m1 and m2
-    private double sqrtDDividedByMu; //The square root of the spring constant D divided by the reduced mass
+    private double omega; //The square root of the spring constant D divided by the reduced mass
 
     private float a; //Constant A for s(t)
     private double b; //Constant B for s(t)
@@ -81,10 +81,10 @@ public class BaseSpringSimulation extends JFrame {
         //Formula stuff
         reducedMass = Utils.reducedMass(mass1, mass2); //Reduced Mass
         System.out.println("µ = " + reducedMass);
-        sqrtDDividedByMu = Math.sqrt(springConstant / reducedMass); //The square root of
+        omega = Math.sqrt(springConstant / reducedMass); //The square root of D devided by mu (Frequency)
 
         a = startPosition2 - startPosition1 - equilibriumDistance;
-        b = (1 / sqrtDDividedByMu) * (startSpeed2 - startSpeed1);
+        b = (1 / omega) * (startSpeed2 - startSpeed1);
 
         System.out.println("A = " + a);
         System.out.println("B = " + b);
@@ -146,7 +146,7 @@ public class BaseSpringSimulation extends JFrame {
         float centerOfMassPositionAtT = centerOfMassStartPosition + (centerOfMassSpeed * (float)deltaTime);
         centerOfMass.setPosX(centerOfMassPositionAtT - centerOfMass.getWidth() / 2); //The position of the center of mass dependent of t
 
-        double sVonT = (a * Math.cos(sqrtDDividedByMu * deltaTime)) + (b * Math.sin(sqrtDDividedByMu * deltaTime)); //The s(t) formula
+        double sVonT = (a * Math.cos(omega * deltaTime)) + (b * Math.sin(omega * deltaTime)); //The s(t) formula
 
         //Body positions
         double body1Position = centerOfMassPositionAtT - ((mass2 * (sVonT + equilibriumDistance)) / (mass1 + mass2));
