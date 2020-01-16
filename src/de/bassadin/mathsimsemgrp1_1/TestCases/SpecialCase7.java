@@ -1,9 +1,8 @@
 package de.bassadin.mathsimsemgrp1_1.TestCases;
 
 import de.bassadin.mathsimsemgrp1_1.BaseSpringSimulation;
-import de.bassadin.mathsimsemgrp1_1.utils.Constants;
 
-public class SpecialCase6 {
+public class SpecialCase7 {
     public static void main(String[] args) {
         //Same Weight
         //No start speed
@@ -11,12 +10,12 @@ public class SpecialCase6 {
         //Both start speeds are not 0 and equal
         // -> Bodies move next to each other continuously
         BaseSpringSimulation testObjekt = new BaseSpringSimulation(
-                14f,
-                7f,
-                18,
+                3f,
+                4f,
+                70,
                 300,
-                200,
-                500,
+                300,
+                380,
                 0,
                 50
         );
